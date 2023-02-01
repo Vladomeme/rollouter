@@ -1,0 +1,55 @@
+{
+    "Slot1" : {
+        "Item" : "",
+        "Command" : "",
+        "Name" : ""
+    },
+
+    "Slot2" : {
+        "Item" : "",
+        "Command" : "",
+        "Name" : ""
+    },
+
+    "Slot3" : {
+        "Item" : "",
+        "Command" : "",
+        "Name" : ""
+    },
+
+    "Slot4" : {
+        "Item" : "",
+        "Command" : "",
+        "Name" : ""
+    },
+
+    "Slot5" : {
+        "Item" : "",
+        "Command" : "",
+        "Name" : ""
+    },
+
+    "Slot6" : {
+        "Item" : "",
+        "Command" : "",
+        "Name" : ""
+    },
+
+    "Slot7" : {
+        "Item" : "",
+        "Command" : "",
+        "Name" : ""
+    },
+
+    "Slot8" : {
+        "Item" : "",
+        "Command" : "",
+        "Name" : ""
+    },
+
+    "Slot9" : {
+        "Item" : "",
+        "Command" : "",
+        "Name" : ""
+    }
+}

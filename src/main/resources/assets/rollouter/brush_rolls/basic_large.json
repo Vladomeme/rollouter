@@ -1,0 +1,54 @@
+{
+    "Slot1" : {
+        "Item" : "golden_shovel",
+        "Command" : "script erode 6 carve",
+        "Name" : "Carve"
+    },
+
+    "Slot2" : {
+        "Item" : "golden_pickaxe",
+        "Command" : "script erode 6 lift",
+        "Name" : "Lift"
+    },
+
+    "Slot3" : {
+        "Item" : "golden_axe",
+        "Command" : "script erode 10 raise",
+        "Name" : "Raise"
+    },
+
+    "Slot4" : {
+        "Item" : "golden_hoe",
+        "Command" : "script erode 12 smooth",
+        "Name" : "Smooth"
+    },
+
+    "Slot5" : {
+        "Item" : "iron_shovel",
+        "Command" : "template BigCutter.txt",
+        "Name" : "BigCutter"
+    },
+
+    "Slot6" : {
+        "Item" : "iron_axe",
+        "Command" : "template BigLifter.txt",
+        "Name" : "BigLifter"
+    },
+
+    "Slot7" : {
+        "Item" : "diamond_pickaxe",
+        "Command" : "fx br s 6 0.8 > air",
+        "Name" : "Air, size 6"
+    },
+
+    "Slot8" : {
+        "Item" : "diamond_axe",
+        "Command" : "fx br s 5 0.8 > bedrock",
+        "Name" : "Bedrock, size 5"
+    },
+
+    "Slot9" : {
+        "Item" : "arrow",
+        "Command" : "b bb"
+    }
+}

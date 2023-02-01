@@ -1,0 +1,61 @@
+# !!Remove this part when copying to brush_rolls!!
+# Item field is required to unroll the brush, Name and Command are optional.
+# You can remove Slots that you do not need.
+# Items should not include the namespace.
+# Items with custom namespaces are not supported.
+# Do not include the / at the start of Commands.
+
+{
+    "Slot1" : {
+        "Item" : "golden_shovel",
+        "Command" : "script erode 3 carve",
+        "Name" : "Carve"
+    },
+
+    "Slot2" : {
+        "Item" : "golden_pickaxe",
+        "Command" : "script erode 3 lift",
+        "Name" : "Lift"
+    },
+
+    "Slot3" : {
+        "Item" : "golden_axe",
+        "Command" : "script erode 4 raise",
+        "Name" : "Raise"
+    },
+
+    "Slot4" : {
+        "Item" : "golden_hoe",
+        "Command" : "script erode 5 smooth",
+        "Name" : "Smooth"
+    },
+
+    "Slot5" : {
+        "Item" : "iron_shovel",
+        "Command" : "template Cutter.txt",
+        "Name" : "Cutter"
+    },
+
+    "Slot6" : {
+        "Item" : "iron_axe",
+        "Command" : "template Lifter.txt",
+        "Name" : "Lifter"
+    },
+
+    "Slot7" : {
+        "Item" : "diamond_pickaxe",
+        "Command" : "fx br s 3 0.8 > air",
+        "Name" : "Air, size 3"
+    },
+
+    "Slot8" : {
+        "Item" : "diamond_axe",
+        "Command" : "fx br s 3 0.8 > bedrock",
+        "Name" : "Bedrock, size 3"
+    },
+
+    "Slot9" : {
+        "Item" : "arrow",
+        "Command" : "b bb"
+    }
+}
