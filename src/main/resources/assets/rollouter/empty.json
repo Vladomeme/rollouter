@@ -1,55 +1,56 @@
+# Remove this part when copying
+# Item field is required to unroll the brush, Name and Command are optional.
+# Max slots is 9.
+# Items should not include the namespace.
+# Items with custom namespaces are not supported.
+# Do not include the / at the start of commands.
+
 {
-    "Slot1" : {
-        "Item" : "",
-        "Command" : "",
-        "Name" : ""
+  "brushes": [
+    {
+      "item": "",
+      "command": "",
+      "name": ""
     },
-
-    "Slot2" : {
-        "Item" : "",
-        "Command" : "",
-        "Name" : ""
+    {
+      "item": "",
+      "command": "",
+      "name": ""
     },
-
-    "Slot3" : {
-        "Item" : "",
-        "Command" : "",
-        "Name" : ""
+    {
+      "item": "",
+      "command": "",
+      "name": ""
     },
-
-    "Slot4" : {
-        "Item" : "",
-        "Command" : "",
-        "Name" : ""
+    {
+      "item": "",
+      "command": "",
+      "name": ""
     },
-
-    "Slot5" : {
-        "Item" : "",
-        "Command" : "",
-        "Name" : ""
+    {
+      "item": "",
+      "command": "",
+      "name": ""
     },
-
-    "Slot6" : {
-        "Item" : "",
-        "Command" : "",
-        "Name" : ""
+    {
+      "item": "",
+      "command": "",
+      "name": ""
     },
-
-    "Slot7" : {
-        "Item" : "",
-        "Command" : "",
-        "Name" : ""
+    {
+      "item": "",
+      "command": "",
+      "name": ""
     },
-
-    "Slot8" : {
-        "Item" : "",
-        "Command" : "",
-        "Name" : ""
+    {
+      "item": "",
+      "command": "",
+      "name": ""
     },
-
-    "Slot9" : {
-        "Item" : "",
-        "Command" : "",
-        "Name" : ""
+    {
+      "item": "",
+      "command": "",
+      "name": ""
     }
+  ]
 }

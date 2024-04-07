@@ -1,0 +1,39 @@
+{
+  "brushes": [
+    {
+      "item": "amethyst_cluster",
+      "command": "fx br s 5 0.8 ? % 5 ? air ? at 0 0 -1 ~ | #amethyst air > 1%amethyst_cluster[facing=south];1%large_amethyst_bud[facing=south];2%medium_amethyst_bud[facing=south];1%small_amethyst_bud[facing=south]",
+      "name": "Amethysts (North)"
+    },
+    {
+      "item": "amethyst_cluster",
+      "command": "fx br s 5 0.8 ? % 5 ? air ? at 0 0 1 ~ | #amethyst air > 1%amethyst_cluster[facing=north];1%large_amethyst_bud[facing=north];2%medium_amethyst_bud[facing=north];1%small_amethyst_bud[facing=north]",
+      "name": "Amethysts (South)"
+    },
+    {
+      "item": "amethyst_cluster",
+      "command": "fx br s 5 0.8 ? % 5 ? air ? at 1 0 0 ~ | #amethyst air > 1%amethyst_cluster[facing=west];1%large_amethyst_bud[facing=west];2%medium_amethyst_bud[facing=west];1%small_amethyst_bud[facing=west]",
+      "name": "Amethysts (East)"
+    },
+    {
+      "item": "amethyst_cluster",
+      "command": "fx br s 5 0.8 ? % 5 ? air ? at -1 0 0 ~ | #amethyst air > 1%amethyst_cluster[facing=east];1%large_amethyst_bud[facing=east];2%medium_amethyst_bud[facing=east];1%small_amethyst_bud[facing=east]",
+      "name": "Amethysts (West)"
+    },
+    {
+      "item": "amethyst_cluster",
+      "command": "fx br s 5 0.8 ? % 5 ? air ? at 0 1 0 ~ | #amethyst air > 1%amethyst_cluster[facing=down];1%large_amethyst_bud[facing=down];2%medium_amethyst_bud[facing=down];1%small_amethyst_bud[facing=down]",
+      "name": "Amethysts (Ceiling)"
+    },
+    {
+      "item": "amethyst_cluster",
+      "command": "fx br s 5 0.8 ? % 5 ? air ? at 0 -1 0 ~ | #amethyst air > 1%amethyst_cluster[facing=up];1%large_amethyst_bud[facing=up];2%medium_amethyst_bud[facing=up];1%small_amethyst_bud[facing=up]",
+      "name": "Amethysts (Floor)"
+    },
+    {
+      "item": "barrier",
+      "command": "fx br s 20 0.8 ? #amethyst ? @ - 1 6 #amethyst > air",
+      "name": "Amethyst Deduplicator"
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "brushes": [
+    {
+      "item": "cobbled_deepslate",
+      "command": "fx br s 10 0.8 ? air ? % 30 ? @h - 1 4 ~ air / ? at 0 -1 0 cobbled_deepslate > cobbled_deepslate_slab[type=bottom] ? at 0 1 0 cobbled_deepslate > cobbled_deepslate_slab[type=top]",
+      "name": "Cobbled Deepstate"
+    },
+    {
+      "item": "cobblestone",
+      "command": "fx br s 10 0.8 ? air ? % 30 ? @h - 1 4 ~ air / ? at 0 -1 0 cobblestone > cobblestone_slab[type=bottom] ? at 0 1 0 cobblestone > cobblestone_slab[type=top]",
+      "name": "Cobblestone"
+    },
+    {
+      "item": "blackstone",
+      "command": "fx br s 10 0.8 ? air ? % 30 ? @h - 1 4 ~ air / ? at 0 -1 0 blackstone > blackstone_slab[type=bottom] ? at 0 1 0 blackstone > blackstone_slab[type=top]",
+      "name": "Blackstone"
+    },
+    {
+      "item": "stone",
+      "command": "fx br s 10 0.8 ? air ? % 30 ? @h - 1 4 ~ air / ? at 0 -1 0 stone > stone_slab[type=bottom] ? at 0 1 0 stone > stone_slab[type=top]",
+      "name": "Stone"
+    },
+    {
+      "item": "andesite",
+      "command": "fx br s 10 0.8 ? air ? % 30 ? @h - 1 4 ~ air / ? at 0 -1 0 andesite > andesite_slab[type=bottom] ? at 0 1 0 andesite > andesite_slab[type=top]",
+      "name": "Andesite"
+    },
+    {
+      "item": "diorite",
+      "command": "fx br s 10 0.8 ? air ? % 30 ? @h - 1 4 ~ air / ? at 0 -1 0 diorite > diorite_slab[type=bottom] ? at 0 1 0 diorite > diorite_slab[type=top]",
+      "name": "Diorite"
+    },
+    {
+      "item": "granite",
+      "command": "fx br s 10 0.8 ? air ? % 30 ? @h - 1 4 ~ air / ? at 0 -1 0 granite > granite_slab[type=bottom] ? at 0 1 0 granite > granite_slab[type=top]",
+      "name": "Granite"
+    },
+    {
+      "item": "sandstone",
+      "command": "fx br s 10 0.8 ? air ? % 30 ? @h - 1 4 ~ air / ? at 0 -1 0 sandstone > sandstone_slab[type=bottom] ? at 0 1 0 sandstone > sandstone_slab[type=top]",
+      "name": "Sandstone"
+    },
+    {
+      "item": "red_sandstone",
+      "command": "fx br s 10 0.8 ? air ? % 30 ? @h - 1 4 ~ air / ? at 0 -1 0 red_sandstone > red_sandstone_slab[type=bottom] ? at 0 1 0 red_sandstone > red_sandstone_slab[type=top]",
+      "name": "Red Sandstone"
+    }
+  ]
+}

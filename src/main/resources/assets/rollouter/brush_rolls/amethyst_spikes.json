@@ -1,0 +1,49 @@
+{
+  "brushes": [
+    {
+      "item": "amethyst_block",
+      "command": "fx br spike 6 1.5 ? | air #amethyst > 4%amethyst_block;1%budding_amethyst",
+      "name": "Spike, 6 1.5"
+    },
+    {
+      "item": "amethyst_block",
+      "command": "fx br spike 8 2 ? | air #amethyst > 4%amethyst_block;1%budding_amethyst",
+      "name": "Spike, 8 2"
+    },
+    {
+      "item": "amethyst_block",
+      "command": "fx br spike 12 3 ? | air #amethyst > 4%amethyst_block;1%budding_amethyst",
+      "name": "Spike, 12 3"
+    },
+    {
+      "item": "amethyst_block",
+      "command": "fx br spike 16 4 ? | air #amethyst > 4%amethyst_block;1%budding_amethyst",
+      "name": "Spike, 16 4"
+    },
+    {
+      "item": "purple_stained_glass",
+      "command": "fx br s 5 0.8 ? air ? @ - 1 6 | amethyst_block budding_amethyst ? % 90 ! > 8%purple_stained_glass;1%purple_stained_glass_pane;1%magenta_stained_glass;1%magenta_stained_glass_pane",
+      "name": "Purple Spike Shell"
+    },
+    {
+      "item": "magenta_stained_glass",
+      "command": "fx br s 5 0.8 ? air ? @ - 1 6 | amethyst_block budding_amethyst ? % 90 ! > 8%magenta_stained_glass;1%magenta_stained_glass_pane;1%purple_stained_glass;1%purple_stained_glass_pane",
+      "name": "Magenta Spike Shell"
+    },
+    {
+      "item": "blue_stained_glass",
+      "command": "fx br s 5 0.8 ? air ? @ - 1 6 | amethyst_block budding_amethyst ? % 90 ! > 8%blue_stained_glass;1%blue_stained_glass_pane;1%light_blue_stained_glass;1%light_blue_stained_glass_pane",
+      "name": "Blue Spike Shell"
+    },
+    {
+      "item": "light",
+      "command": "fx br s 15 0.8 ? air ? @ - 1 6 #glass > light[level=7]",
+      "name": "Light, level 7"
+    },
+    {
+      "item": "light",
+      "command": "fx br s 15 0.8 ? air ? @ - 1 6 #glass > light[level=12]",
+      "name": "Light, level 12"
+    }
+  ]
+}

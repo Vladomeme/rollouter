@@ -1,55 +1,49 @@
 {
-    "Slot1" : {
-        "Item" : "iron_axe",
-        "Command" : "fx br s 5 0.8 / ? bedrock ? @ - 1 6 air > white_stained_glass ? bedrock ? @ - 1 6 white_stained_glass > red_stained_glass",
-        "Name" : "Bedrock -> Glass, 2 layers, size 5"
+  "brushes": [
+    {
+      "item": "iron_axe",
+      "command": "fx br s 5 0.8 / ? bedrock ? @ - 1 6 air > white_stained_glass ? bedrock ? @ - 1 6 white_stained_glass > red_stained_glass",
+      "name": "Bedrock -> Glass, 2 layers, size 5"
     },
-
-    "Slot2" : {
-        "Item" : "iron_shovel",
-        "Command" : "fx br s 8 0.8 / ? bedrock ? @ - 1 6 air > white_stained_glass ? bedrock ? @ - 1 6 white_stained_glass > red_stained_glass",
-        "Name" : "Bedrock -> Glass, 2 layers, size 8"
+    {
+      "item": "iron_shovel",
+      "command": "fx br s 8 0.8 / ? bedrock ? @ - 1 6 air > white_stained_glass ? bedrock ? @ - 1 6 white_stained_glass > red_stained_glass",
+      "name": "Bedrock -> Glass, 2 layers, size 8"
     },
-
-    "Slot3" : {
-        "Item" : "iron_pickaxe",
-        "Command" : "fx br s 12 0.8 / ? bedrock ? @ - 1 6 air > white_stained_glass ? bedrock ? @ - 1 6 white_stained_glass > red_stained_glass",
-        "Name" : "Bedrock -> Glass, 2 layers, size 12"
+    {
+      "item": "iron_pickaxe",
+      "command": "fx br s 12 0.8 / ? bedrock ? @ - 1 6 air > white_stained_glass ? bedrock ? @ - 1 6 white_stained_glass > red_stained_glass",
+      "name": "Bedrock -> Glass, 2 layers, size 12"
     },
-
-    "Slot4" : {
-        "Item" : "stone_axe",
-        "Command" : "fx br s 3 0.8 ? | white_stained_glass red_stained_glass ? at 0 1 0 air ? angle - 0 55 1 > sponge",
-        "Name" : "Glass -> Floor, size 3"
+    {
+      "item": "stone_axe",
+      "command": "fx br s 3 0.8 ? | white_stained_glass red_stained_glass ? at 0 1 0 air ? angle - 0 55 1 > sponge",
+      "name": "Glass -> Floor, size 3"
     },
-
-    "Slot5" : {
-        "Item" : "stone_shovel",
-        "Command" : "fx br s 6 0.8 ? | white_stained_glass red_stained_glass ? at 0 1 0 air ? angle - 0 55 1 > sponge",
-        "Name" : "Glass -> Floor, size 6"
+    {
+      "item": "stone_shovel",
+      "command": "fx br s 6 0.8 ? | white_stained_glass red_stained_glass ? at 0 1 0 air ? angle - 0 55 1 > sponge",
+      "name": "Glass -> Floor, size 6"
     },
-
-    "Slot6" : {
-        "Item" : "golden_shovel",
-        "Command" : "fx br s 10 ? | white_stained_glass red_stained_glass ? ## simplex 3 120 3 > redstone_block : > diamond_block",
-        "Name" : "Simplex, 3d, scale 3"
+    {
+      "item": "golden_shovel",
+      "command": "fx br s 10 ? | white_stained_glass red_stained_glass ? ## simplex 3 120 3 > white_wool : > red_wool",
+      "name": "Glass -> Simplex, 3d, scale 3"
     },
-
-    "Slot7" : {
-        "Item" : "golden_axe",
-        "Command" : "fx br s 10 ? | white_stained_glass red_stained_glass ? ## simplex 3 120 6 > redstone_block : > diamond_block",
-        "Name" : "Simplex, 3d, scale 6"
+    {
+      "item": "golden_axe",
+      "command": "fx br s 10 ? | white_stained_glass red_stained_glass ? ## simplex 3 120 6 > white_wool : > red_wool",
+      "name": "Glass -> Simplex, 3d, scale 6"
     },
-
-    "Slot8" : {
-        "Item" : "golden_hoe",
-        "Command": "fx br s 10 ? | white_stained_glass red_stained_glass ? ## simplex 4 120 3 > redstone_block : > diamond_block",
-        "Name" : "Simplex, 4d, scale 3"
+    {
+      "item": "golden_hoe",
+      "command": "fx br s 10 ? | white_stained_glass red_stained_glass ? ## simplex 4 120 3 > white_wool : > red_wool",
+      "name": "Glass -> Simplex, 4d, scale 3"
     },
-
-    "Slot9" : {
-        "Item" : "golden_pickaxe",
-        "Command": "fx br s 10 ? | white_stained_glass red_stained_glass ? ## simplex 4 120 6 > redstone_block : > diamond_block",
-        "Name" : "Simplex, 4d, scale 6"
+    {
+      "item": "golden_pickaxe",
+      "command": "fx br s 10 ? | white_stained_glass red_stained_glass ? ## simplex 4 120 6 > white_wool : > red_wool",
+      "name": "Glass -> Simplex, 4d, scale 6"
     }
+  ]
 }

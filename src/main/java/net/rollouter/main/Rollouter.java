@@ -2,38 +2,36 @@ package net.rollouter.main;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonParser;
+import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.suggestion.SuggestionProvider;
 import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.ingame.CreativeInventoryListener;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.packet.c2s.play.CreativeInventoryActionC2SPacket;
 import net.minecraft.network.packet.c2s.play.UpdateSelectedSlotC2SPacket;
-import net.minecraft.network.packet.s2c.play.UpdateSelectedSlotS2CPacket;
+import net.minecraft.registry.Registries;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
-import net.rollouter.main.util.Brush;
-import net.rollouter.main.util.QueuedBrush;
-import net.rollouter.main.util.Roll;
-import net.rollouter.main.util.UnrollTimer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.fabricmc.api.ModInitializer;
 
+import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Stack;
@@ -45,15 +43,17 @@ import static net.fabricmc.fabric.api.client.command.v2.ClientCommandManager.lit
 public class Rollouter implements ModInitializer, SuggestionProvider {
 
     public static final Logger LOGGER = LoggerFactory.getLogger("rollouter");
-    Gson gson = new Gson();
-    String fileName;
-    ArrayList<String> fileNames = new ArrayList<>();
-    static Stack<QueuedBrush> brushQueue = new Stack<>();
+    private static final MinecraftClient client = MinecraftClient.getInstance();
+
+    final ArrayList<String> files = new ArrayList<>();
+    static final Stack<Brush> queue = new Stack<>();
     static int delay = 2;
+    int ticks;
 
     @Override
     public void onInitialize() {
         ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new SimpleSynchronousResourceReloadListener() {
+
 
             @Override
             public Identifier getFabricId() {
@@ -62,116 +62,115 @@ public class Rollouter implements ModInitializer, SuggestionProvider {
 
             @Override
             public void reload(ResourceManager manager) {
-                if (fileNames != null) {
-                    fileNames.clear();
-                }
+                files.clear();
+
                 manager.findResources("brush_rolls", id -> id.getPath().endsWith(".json")).keySet().forEach(id -> {
-                    try (InputStream stream = manager.getResource(id).get().getInputStream()) {
-                        fileNames.add(Path.of(id.getPath()).getFileName().toString());
-                    } catch (Exception e) {
-                        LOGGER.error("Error occurred while loading resource json " + id.toString(), e);
-                    }
+                    if (manager.getResource(id).isPresent()) files.add(Path.of(id.getPath()).getFileName().toString());
                 });
+
+                if (!Files.exists(Path.of(FabricLoader.getInstance().getConfigDir() + "/rollouter"))) {
+                    try {
+                        Files.createDirectories(Path.of(FabricLoader.getInstance().getConfigDir() + "/rollouter"));
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+                else {
+                    File[] rolls = new File(FabricLoader.getInstance().getConfigDir() + "/rollouter").listFiles();
+                    if (rolls != null)
+                        for (File file : rolls) {
+                            if (!file.getName().endsWith("json")) continue;
+                            files.add(file.getName());
+                        }
+                }
+
                 addCommand();
+
+                ClientTickEvents.END_CLIENT_TICK.register(client -> {
+                    if (--ticks == 0 && !queue.empty()) nextBrush();
+                });
             }
+
         });
         LOGGER.info("Rollouter loaded!");
     }
 
     public void addCommand() {
-        ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> {
-            dispatcher.register(
-                    literal("rollout")
-                            .then(argument("file_name", StringArgumentType.string())
-                                    .suggests(this::getSuggestions).executes(context -> {
-                                        fileName = StringArgumentType.getString(context, "file_name");
-                                        moveToQueue(fileName);
-                                        return 1;
-                                    }).then(argument("delayTicks", StringArgumentType.string()).executes(context -> {
-                                                        delay = Integer.parseInt(StringArgumentType.getString(context, "delayTicks"));
-                                                        moveToQueue(fileName);
-                                                        return 1;
-                                                    }
-                                            )
-                                    )
-                            )
-            );
-        });
+        ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> dispatcher.register(
+                literal("rollout")
+                        .then(argument("file", StringArgumentType.string())
+                                .suggests(this::getSuggestions).executes(context -> {
+                                    unroll(StringArgumentType.getString(context, "file"));
+                                    return 1;
+                                })
+                                .then(argument("delay", IntegerArgumentType.integer()).executes(context -> {
+                                            delay = IntegerArgumentType.getInteger(context, "delay");
+                                            unroll(StringArgumentType.getString(context, "file"));
+                                            return 1;
+                                        }
+                                )))));
     }
 
-    public void moveToQueue(String fileName) {
-        LOGGER.info("Unrolling " + fileName);
-        Roll roll = null;
+    public void unroll(String file) {
+        if (client.player == null) return;
+        LOGGER.info("Unrolling " + file);
+
         try {
-            roll = gson.fromJson(JsonParser.parseReader(new InputStreamReader(MinecraftClient.getInstance().getResourceManager().getResource(
-                    new Identifier("rollouter", "brush_rolls/" + fileName)).get().getInputStream())).getAsJsonObject(), Roll.class);
-            if (roll.getSlot9() != null) {
-                brushQueue.push(new QueuedBrush(roll.getSlot9(), 8));
+            Brush[] brushes;
+            if (isFileInRP(file)) brushes = new Gson().fromJson(JsonParser.parseReader(new InputStreamReader(client.getResourceManager().getResource(
+                    new Identifier("rollouter", "brush_rolls/" + file)).get().getInputStream())).getAsJsonObject(), Roll.class).brushes();
+            else brushes = new Gson().fromJson(Files.readString(
+                    Path.of(FabricLoader.getInstance().getConfigDir() + "/rollouter/" + file)), Roll.class).brushes();
+
+            LOGGER.info("Length: " + brushes.length);
+            for (int i = 0; i < Math.min(brushes.length, 9); i++) {
+                queue.push(brushes[i].withSlot(i));
+                LOGGER.info(brushes[i].command());
             }
-            if (roll.getSlot8() != null) {
-                brushQueue.push(new QueuedBrush(roll.getSlot8(), 7));
-            }
-            if (roll.getSlot7() != null) {
-                brushQueue.push(new QueuedBrush(roll.getSlot7(), 6));
-            }
-            if (roll.getSlot6() != null) {
-                brushQueue.push(new QueuedBrush(roll.getSlot6(), 5));
-            }
-            if (roll.getSlot5() != null) {
-                brushQueue.push(new QueuedBrush(roll.getSlot5(), 4));
-            }
-            if (roll.getSlot4() != null) {
-                brushQueue.push(new QueuedBrush(roll.getSlot4(), 3));
-            }
-            if (roll.getSlot3() != null) {
-                brushQueue.push(new QueuedBrush(roll.getSlot3(), 2));
-            }
-            if (roll.getSlot2() != null) {
-                brushQueue.push(new QueuedBrush(roll.getSlot2(), 1));
-            }
-            if (roll.getSlot1() != null) {
-                brushQueue.push(new QueuedBrush(roll.getSlot1(), 0));
-            }
-            ((UnrollTimer) MinecraftClient.getInstance().player).unroll_setTimer(1);
+            if (brushes.length > 9) client.inGameHud.getChatHud().addMessage(Text.of("Brush roll had more than 9 entries!"));
+
+            ticks = 1;
         } catch (IOException e) {
-            LOGGER.error("Error occurred while loading resource json " + fileName, e);
+            LOGGER.error("Error occurred while unrolling " + file, e);
         }
     }
 
-    public static void unrollBrush(Brush brush, int slot) {
-        PlayerInventory inventory = MinecraftClient.getInstance().player.getInventory();
-        inventory.selectedSlot = slot;
-        MinecraftClient.getInstance().getNetworkHandler().sendPacket(new UpdateSelectedSlotC2SPacket(slot));
-        ItemStack stack;
-        if (brush.getName() != null) {
-            stack = new ItemStack(Registry.ITEM.get(
-                    new Identifier("minecraft", brush.getItem()))).setCustomName(Text.of(brush.getName()));
-        } else {
-            stack = new ItemStack(Registry.ITEM.get(
-                    new Identifier("minecraft", brush.getItem())));
-        }
-        inventory.setStack(slot, stack);
-        MinecraftClient.getInstance().getNetworkHandler().sendPacket(new CreativeInventoryActionC2SPacket(slot + 36, stack));
-        if (brush.getCommand() != null) {
-            MinecraftClient.getInstance().player.sendCommand(brush.getCommand());
+    public void giveBrush(Brush brush) {
+        if (client.player == null || client.getNetworkHandler() == null) return;
+        PlayerInventory inventory = client.player.getInventory();
+
+        inventory.selectedSlot = brush.slot();
+        ItemStack stack = new ItemStack(Registries.ITEM.get(
+                new Identifier("minecraft", brush.item())));
+        if (brush.name() != null) stack.setCustomName(Text.of(brush.name()));
+
+        client.getNetworkHandler().sendPacket(new UpdateSelectedSlotC2SPacket(brush.slot()));
+
+        inventory.setStack(brush.slot(), stack);
+
+        client.getNetworkHandler().sendPacket(new CreativeInventoryActionC2SPacket(brush.slot() + 36, stack));
+        if (brush.command() != null) {
+            if (brush.command().length() < 256) client.getNetworkHandler().sendCommand(brush.command());
+            else client.inGameHud.getChatHud().addMessage(Text.of("Command for brush " + brush.slot() + "is too long!"));
         }
     }
 
-    public static void unrollNextBrush() {
-        QueuedBrush queuedBrush = brushQueue.pop();
-        unrollBrush(queuedBrush.getBrush(), queuedBrush.getSlot());
-        if (!brushQueue.empty()) {
-            ((UnrollTimer) (Object) MinecraftClient.getInstance().player).unroll_setTimer(delay);
-        } else {
-            delay = 2;
-        }
+    public void nextBrush() {
+        if (client.player == null) return;
+
+        giveBrush(queue.pop());
+
+        if (queue.empty()) delay = 2;
+        else ticks = delay;
+    }
+
+    private boolean isFileInRP(String file) {
+        return client.getResourceManager().getResource(new Identifier("rollouter", "brush_rolls/" + file)).isPresent();
     }
 
     @Override
     public CompletableFuture<Suggestions> getSuggestions(CommandContext context, SuggestionsBuilder builder) {
-        fileNames.forEach(filename -> {
-            builder.suggest(filename);
-        });
+        files.forEach(builder::suggest);
         return builder.buildFuture();
     }
 }

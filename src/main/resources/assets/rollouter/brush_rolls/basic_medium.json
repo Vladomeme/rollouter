@@ -1,54 +1,45 @@
 {
-    "Slot1" : {
-        "Item" : "golden_shovel",
-        "Command" : "script erode 3 carve",
-        "Name" : "Carve"
+  "brushes": [
+    {
+      "item": "golden_shovel",
+      "command": "script erode 3 carve",
+      "name": "Carve"
     },
-
-    "Slot2" : {
-        "Item" : "golden_pickaxe",
-        "Command" : "script erode 3 lift",
-        "Name" : "Lift"
+    {
+      "item": "golden_pickaxe",
+      "command": "script erode 3 lift",
+      "name": "Lift"
     },
-
-    "Slot3" : {
-        "Item" : "golden_axe",
-        "Command" : "script erode 6 raise",
-        "Name" : "Raise"
+    {
+      "item": "golden_axe",
+      "command": "script erode 6 raise",
+      "name": "Raise"
     },
-
-    "Slot4" : {
-        "Item" : "golden_hoe",
-        "Command" : "script erode 8 smooth",
-        "Name" : "Smooth"
+    {
+      "item": "golden_hoe",
+      "command": "script erode 8 smooth",
+      "name": "Smooth"
     },
-
-    "Slot5" : {
-        "Item" : "iron_shovel",
-        "Command" : "template Cutter.txt",
-        "Name" : "Cutter"
+    {
+      "item": "bedrock"
     },
-
-    "Slot6" : {
-        "Item" : "iron_axe",
-        "Command" : "template Lifter.txt",
-        "Name" : "Lifter"
+    {
+      "item": "iron_axe",
+      "name": "Custom"
     },
-
-    "Slot7" : {
-        "Item" : "diamond_pickaxe",
-        "Command" : "fx br s 4 0.8 > air",
-        "Name" : "Air, size 4"
+    {
+      "item": "diamond_pickaxe",
+      "command": "fx br s 4 0.8 > air",
+      "name": "Air, size 4"
     },
-
-    "Slot8" : {
-        "Item" : "diamond_axe",
-        "Command" : "fx br s 4 0.8 > bedrock",
-        "Name" : "Bedrock, size 4"
+    {
+      "item": "diamond_axe",
+      "command": "fx br s 4 0.8 > bedrock",
+      "name": "Bedrock, size 4"
     },
-
-    "Slot9" : {
-        "Item" : "arrow",
-        "Command" : "b bb"
+    {
+      "item": "arrow",
+      "command": "b bb"
     }
+  ]
 }
